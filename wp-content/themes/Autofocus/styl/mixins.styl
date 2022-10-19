@@ -1,0 +1,13 @@
+@import './colors'
+
+gradient(deg = 45deg, colorGradient = accent-gradient)
+    background-image linear-gradient(deg, colorGradient)
+
+
+textgradient(deg = 45deg, colorGradient = accent-gradient)
+    gradient(deg, colorGradient)
+    background-clip text
+    -webkit-background-clip text
+    -webkit-text-fill-color transparent
+    color transparent
+

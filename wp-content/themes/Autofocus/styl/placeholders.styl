@@ -1,0 +1,40 @@
+@import './colors'
+@import './layout'
+
+resp=
+    width calc(100% - 2rem)
+    max-width 96.25rem
+    margin-inline auto
+
+title=
+    font-size 4rem
+    font-style italic
+    font-weight bold
+    // padding-block spacer * 4
+desc=
+    font-size clamp(1.125rem, 10vw, 1.25rem)
+    color desc-clr
+    
+card_gradient=
+    background-image card-gradient
+
+focus=
+    &:focus-visible
+        outline 2px solid accent-clr
+        outline-offset .25em
+
+underline=
+    position relative
+    &:hover::after
+        transform scaleX(1)
+    &::after
+        content ''
+        position absolute
+        bottom -10%
+        left 0
+        width 100%
+        transform scaleX(0)
+        height .125rem
+        transition transform.3s
+        transform-origin left
+        background-color currentColor

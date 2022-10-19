@@ -1,0 +1,396 @@
+@import './colors'
+@import './functions'
+@import './layout'
+@import './mixins'
+@import './typography'
+@import './placeholders'
+
+header
+    z-index: 999
+    position fixed
+    width 100%
+    top 0
+    left 0
+    background-color background-clr
+    .menu
+        &__container
+            padding-block 2rem
+        &__content
+            {resp}
+            display flex
+            align-items center
+            justify-content space-between
+            gap clamp((spacer / 4), 2vw, (spacer * 2))
+            isolation isolate
+        &__logo
+            width 15rem
+    .menu-menu-sec-container
+        isolation isolate
+        & > ul
+            display flex
+            align-items center
+            gap spacer * 2
+            list-style none
+               
+    .menu-item
+        font-size 1.25rem
+        a
+            text-decoration none
+            color black
+    .current-menu-item
+        font-weight 900
+        position relative
+        &::after
+            content ''
+            position absolute
+            bottom 0
+            left 0
+            width 30%
+            height .125rem
+            background-color currentColor
+
+.hamburger
+    width 2em
+    aspect-ratio 1.3/1
+    display none
+    place-items center
+    gap 0.5em
+    margin-inline 1em
+    cursor pointer
+    
+    &__bar
+        background-color rgb(47, 47, 47)
+        height .25em
+        width 100%
+
+
+.cta, [type="submit"]
+    display inline-block
+    padding-block 1em
+    padding-inline 2em
+    font-family f-secondary
+    color white
+    position relative
+    isolation isolate
+
+.cta
+    outline-width 2px 
+    outline-style solid
+    outline-color accent-clr
+    &:hover, &:focus-visible
+        color @outline-color
+        &::before
+            clip-path polygon(0 0, 0 0, 0 100%, 0% 100%)
+    &::before
+        content ''
+        position absolute
+        inset @outline-width * -1
+        gradient()
+        clip-path polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+        transition clip-path .3s, color .3s
+        z-index -1
+
+    text-decoration none
+
+a[download]
+    @extend .cta
+    display inline-flex
+    align-items center
+    gap (spacer / 4)
+    &::after
+        content '\ec1b'
+        font-family 'remixicon' !important
+
+
+[type="submit"]
+    gradient()
+
+
+
+
+.artists // all artists
+    display grid
+    grid-template-columns repeat(auto-fill, minmax(clamp(100px, 60vw, 300px), 1fr))
+    gap spacer * 2
+
+    
+.artist // each artist
+    position relative
+    aspect-ratio 1/1.5
+    display grid
+    align-items start
+    isolation isolate
+    padding-block 1em
+    padding-block-end 2em
+    padding-inline @padding-block
+
+    h3 // name of the artist
+        color white
+        margin-block-start auto
+        font-size 2rem
+
+    .miniatures // div containing img
+        position relative
+        &::before
+            content ''
+            inset 0
+            position absolute
+            z-index: 999
+            {card_gradient}
+            top 0
+            left 0
+        height 100%
+        width 100%
+        top 0
+        left 0
+        position absolute
+        z-index -1
+        img
+            position absolute
+            width 100%
+            height 100%
+            object-fit cover
+
+.tags // tag list
+    display flex
+    flex-wrap wrap
+    gap (spacer / 2)
+    a // each tag
+        padding-block .5em
+        padding-inline 1.5em
+        gradient()
+        text-decoration none
+        text-transform uppercase
+        color white
+        font-family f-tertiary
+        font-size .875rem
+        pointer-events: none
+
+
+
+
+
+.hero
+    padding-block-end 15rem
+    &__content
+        display flex
+        {resp}
+    &__section
+        position relative
+        display grid
+        justify-items start
+        width 100%
+        &:nth-child(2)
+            margin-block-start: 10em
+    &__decoration
+            position absolute
+            pointer-events none
+            right 3rem
+            // background-color red
+            width clamp(5rem, 10vw, 15rem)
+            aspect-ratio: 1/1.55
+            border 1px solid title-clr
+            &::before
+                content ''
+                position absolute
+                width 100%
+                height @width
+                border inherit
+                top 4rem
+                left @top
+
+    &__date
+        textgradient()
+        font-family f-tertiary
+        font-size 1.75rem
+    &__title
+        font-style italic
+        font-size clamp(4rem, 10vw, 12rem)
+        color title-clr
+    &__subtitle
+        font-style italic
+        font-size clamp(1.5rem, 5vw, 2.25rem)
+        font-weight 500
+        margin-block-start spacer
+    &__cta
+        margin-block-start clamp(1rem, 10vw, spacer * 4)
+    &__img
+        object-fit cover
+        position absolute
+        align-self center
+        
+        for i in (0..2)
+            &:nth-child({i + 1})
+                if i == 1
+                    border 3rem solid black
+                right i * 30%
+                width (100% - ((i + 1) * 20%))
+                filter blur((2 - i) * .25rem)
+
+.stand
+    background-color #d9d9d9
+    for i in (1..3)
+        &:nth-child({i})
+            grid-area stand + i
+    position relative
+    isolation isolate
+    overflow hidden
+    width 100%
+    height @width
+    aspect-ratio 2/1
+    display grid
+    align-content end
+    padding-block 2em
+    padding-inline 2em
+        
+    &::before
+        content ''
+        position absolute
+        inset 0
+        {card_gradient}
+        z-index -1
+    img
+        width 100%
+        height 100%
+        position absolute
+        object-fit cover
+        object-position center
+        z-index -2
+    h3
+        font-size 2.25rem        
+    p
+        font-size 1.5rem
+
+form
+    input, textarea
+        width 100%
+        outline: 0
+        border: 0
+        padding-block .5em
+        padding-inline .5em
+        font-size 1.25rem
+        {focus}
+        border 1px solid black
+        background-color transparent
+        border-radius .125em
+    label
+        font-family f-secondary
+        font-size 1.75rem
+        margin-block-start spacer * 2
+    textarea
+        {focus}
+        resize vertical
+        min-height 20ch
+
+    [type="submit"]
+        border 0
+        cursor pointer
+        margin-block-start spacer * 1.2
+
+.form
+    border-radius .75em
+    width 40% 
+    &__title
+        {title}
+
+
+.sponsors
+    margin-block-start spacer * 4
+    margin-block-end spacer * 8
+    &__content
+        {resp}
+    &__title
+        {title}
+        text-align center
+    &__list
+        margin-block-start spacer * 2
+        display flex
+        gap spacer * 1
+        flex-wrap wrap
+        justify-content space-evenly
+        & > *
+            flex-basis 20%
+
+
+
+.footer
+    background-color #1E1E1E
+    color white
+    padding-block spacer * 4
+    margin-block-start auto
+    &__section
+        display grid
+        gap spacer * 2
+    &__content
+        display grid
+        align-items start
+        grid-template-columns repeat(auto-fit, minmax(clamp(100px, 60vw, 250px), 1fr))
+        gap spacer * 4
+        {resp}
+    &__title
+        font-size 2rem
+    &__links
+        display flex
+        flex-direction column
+        gap (spacer / 2)
+    &__link
+        color @color
+        text-decoration none
+        position relative
+        width fit-content
+        {underline}
+    & > div > p
+        text-align center
+
+
+
+
+
+
+
+@media screen and (max-width: mobile-size)
+
+    header
+        .menu-menu-sec-container
+            & > ul
+                position fixed
+                z-index -1
+                background rgb(255, 255, 255)
+                height 100%
+                top 0
+                left 100vw
+                transition transform .3s 
+                flex-direction column
+                align-items start
+                padding-block 1rem
+                padding-block-start 8rem
+                padding-inline 2rem
+                width 80%
+                
+    .hamburger
+        display grid
+
+    .hero
+        &__content
+            flex-direction column-reverse
+        
+        &__section
+            justify-items initial
+            &:nth-child(2)
+                margin-block-start 0
+        
+        &__title, &__subtitle, &__date, &__cta
+            text-align center
+
+        &__img
+            &:nth-child(3)
+                width 100%
+                margin-inline auto
+                position static
+                translate initial
+                aspect-ratio 1
+            &:not(:nth-child(3))
+                display none
+    
+    .stand
+        aspect-ratio initial
